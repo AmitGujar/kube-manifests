@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deployment
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      name: my-deployment
+  strategy:
+    rollingUpdate:
+      maxSurge: 50%
+      maxUnavailable: 10%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        name: my-deployment
+    spec:
+      containers:
+        - image: amitgujar/static-app:latest
+          name: my-deployment
+          resources:
+            requests:
+              cpu: "20m"
+              memory: "55M"
+            limits:
+              cpu: "100m"
+              memory: "100M"
+          ports:
+            - containerPort: 80
+              name: http

@@ -19,9 +19,19 @@ spec:
     spec:
       containers:
         - name: freefacts-deployment
-          image: amitgujar/freefacts:latest
+          image: amitgujar/freefacts:pipeline-204
           ports:
             - containerPort: 3000
+          securityContext:
+            readOnlyRootFilesystem: false
+            runAsNonRoot: true
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
           env:
             - name: MONGODB_HOST
               valueFrom:
