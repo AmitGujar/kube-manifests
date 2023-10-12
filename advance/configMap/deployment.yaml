@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helloworld-nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: helloworld-nginx
+  template:
+    metadata:
+      labels:
+        name: helloworld-nginx
+    spec:
+      containers:
+        - image: nginx:1.11
+          name: nginx
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: /etc/nginx/conf.d
+              name: config-volume
+        - name: k8s-demo
+          image: wardviaene/k8s-demo
+          ports:
+            - containerPort: 3000
+      volumes:
+        - name: config-volume
+          configMap:
+            name: nginx-config
+            items:
+              - key: reverseproxy.conf
+                path: reverseproxy.conf
