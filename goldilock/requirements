@@ -1,0 +1,12 @@
+Install vpa
+
+helm repo add fairwinds-stable https://charts.fairwinds.com/stable
+helm install vpa fairwinds-stable/vpa --namespace vpa --create-namespace
+
+
+Label the namespace
+kubectl label ns goldilocks goldilocks.fairwinds.com/enabled=true
+
+
+Run 
+goldilock dashboard

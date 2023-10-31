@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: volume-deployment
+spec:
+  strategy:
+    type: Recreate
+  replicas: 4
+  selector:
+    matchLabels:
+      app: volume-deployment
+  template:
+    metadata:
+      labels:
+        app: volume-deployment
+    spec:
+      containers:
+        - name: volume-deployment
+          image: amitgujar/static-app:latest
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: datavolume
+              mountPath: /mnt/azure
+      volumes:
+        - name: datavolume
+          persistentVolumeClaim:
+            claimName: azure-managed-disk

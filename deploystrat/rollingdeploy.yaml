@@ -17,16 +17,21 @@ spec:
       labels:
         name: my-deployment
     spec:
+      tolerations:
+        - key: "key"
+          operator: "Equal"
+          value: "value"
+          effect: "NoSchedule"
       containers:
         - image: amitgujar/static-app:latest
           name: my-deployment
           resources:
             requests:
-              cpu: "20m"
-              memory: "55M"
+              cpu: 15m
+              memory: 105M
             limits:
-              cpu: "100m"
-              memory: "100M"
+              cpu: 15m
+              memory: 105M
           ports:
             - containerPort: 80
               name: http

@@ -1,0 +1,6 @@
+{
+    "yaml.schemas": {
+        "kubernetes://schema/storage.k8s.io/v1@storageclass": "file:///home/amit/kube-manifests/advance/volumes/storageclass.yml",
+        "kubernetes://schema/apps/v1%40deployment": "file:///home/amit/kube-manifests/ntfy/deployment.yaml"
+    }
+}

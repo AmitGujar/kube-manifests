@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hpa-example
+spec:
+  selector:
+    matchLabels:
+      app: hpa-example
+  template:
+    metadata:
+      labels:
+        app: hpa-example
+    spec:
+      containers:
+      - name: hpa-example
+        image: gcr.io/google_containers/hpa-example
+        resources:
+          requests:
+            cpu: "200m"
+        ports:
+        - containerPort: 80
+          name:  http-port
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name:  hpa-example
+spec:
+  selector:
+    app:  hpa-example
+  type:  NodePort
+  ports:
+  - name:  hpa-service-port
+    port:  31001
+    targetPort:  http-port
+
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hpa-example-autoscaler
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: hpa-example2
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 50
