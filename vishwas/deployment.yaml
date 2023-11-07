@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dotnet-deployment
+  namespace: dotnet
+  labels:
+    app: dotnet-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dotnet-app
+  template:
+    metadata:
+      labels:
+        app: dotnet-app
+    spec:
+      containers:
+      - name: dotnet
+        image: vishwasconreg.azurecr.io/vishwasconreg:27
+        ports:
+        - containerPort: 80

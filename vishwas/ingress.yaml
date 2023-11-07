@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dotnet-ingress
+  namespace: dotnet
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+spec:
+  ingressClassName: public
+#   tls:
+#     - hosts:
+#         - console.bumblebee.social
+#       secretName: console-tls-secret
+  rules:
+   # - host: console.bumblebee.social
+     - http:
+         paths:
+           - path: /
+             pathType: Prefix
+             backend:
+               service:
+                 name: dotnet-svc
+                 port:
+                   number: 80
