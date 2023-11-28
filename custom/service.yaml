@@ -1,11 +1,11 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name:  my-deployment
+  name: deployment
 spec:
   selector:
-    app:  my-deployment
-  type:  NodePort
+    app: deployment
+  type: LoadBalancer
   ports:
   - name:  http
     port:  80
